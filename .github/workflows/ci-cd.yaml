@@ -7,20 +7,35 @@ on:
 
 jobs:
     build:
-        runs-on: ubuntu-latest
+        runs-on: windows-latest
         steps:
             - name: Check out code
               uses: actions/checkout@v4
-            - name: Setup .NET Core
+
+            - name: Setup .NET 6
               uses: actions/setup-dotnet@v3
               with:
-                dotnet-version: '3.1.x'
+                dotnet-version: '6.0.x'
+
             - name: Restore dependencies
               run: dotnet restore
+
             - name: Build application
               run: dotnet build --configuration Release --no-restore
+
             - name: Test application
               run: dotnet test -c Release --no-build 
+
+            - name: Publish application
+              run: dotnet publish -c Release -o ./out
+
+            - name: Deploy to Azure Web Apps
+              uses: azure/webapps-deploy@v2
+              with:
+                app-name: andrii-first-app
+                publish-profile: ${{ secrets.AZURE_WEB_APP_PUBLISH_SECRET }}
+                package: ./out
+
         
 
 
