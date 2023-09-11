@@ -20,7 +20,7 @@ jobs:
             - name: Build application
               run: dotnet build --configuration Release --no-restore
             - name: Test application
-              run: dotnet test --no-restore --no-build 
+              run: dotnet test -c Release --no-build 
         
 
 
