@@ -18,6 +18,7 @@ namespace CI_CD_Actions.Tests
             //Create a dbContext
             var configuration = new ConfigurationBuilder()
 				.AddJsonFile("appsettings.json")
+                .AddEnvironmentVariables()
 				.Build();
 
             var optionsBuilder = new DbContextOptionsBuilder<CustomerContext>();
@@ -44,8 +45,6 @@ namespace CI_CD_Actions.Tests
             //Assert
             Assert.Single(customers.Value);
             Assert.Equal("FooBar", customers.Value.First().CustomerName);
-
-            
         }
     }
 }
