@@ -19,7 +19,7 @@ jobs:
 
             - name: Start SQL Server
               run: 
-                docker run -e "ACCEPT_EULA=Y" -e "MSSQL_SA_PASSWORD=yourStrong(!)Password" -e "MSSQL_PID=Express" -p 1433:1433 -d mcr.microsoft.com/mssql/server:2019-latest
+                docker -d run -e "ACCEPT_EULA=Y" -e "MSSQL_SA_PASSWORD=yourStrong(!)Password" -e "MSSQL_PID=Express" -e "MSSQL_SSL_ENFORCE=0" -p 1433:1433 -d mcr.microsoft.com/mssql/server:2019-latest
 
             - name: Wait for SQL Server to start
               run: |
